@@ -10,8 +10,8 @@ def recover_identities(grouped_ages,final_dict):
         remaining_jpgs = []
         adjust = False
         to_retrieve = 0
+        final_dict[id] = []
         for i in range(1, 4):
-            final_dict[id] = []
             try:
                 jpgs = grouped_ages[id]["group{}".format(i)]
             except:
