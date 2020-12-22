@@ -3,6 +3,7 @@ from group_ages import group_ages
 from recover_identities import recover_identities
 from plot_utils import vs_plot
 from dataset_split import train_test_val_split
+from extract_jpgs import extract_jpgs
 
 ages = {}  # {identity:{jpg:age}}
 grouped_ages = {} #{identity:{group_age:[jpgs]}}
@@ -29,6 +30,12 @@ print("NUMBER OF TAKEN SAMPLES: {}".format(cnt)) #1261462
 
 print("Splitting...")
 splitted_dict_samples, splitted_dict_labels = train_test_val_split(ages, final_dict)
+n_train, n_val, n_test = 0,0,0
+for id in list(splitted_dict_samples.keys()):
+    n_train += len(list(splitted_dict_samples[id]["train"]))
+    n_val += len(list(splitted_dict_samples[id]["val"]))
+    n_test += len(list(splitted_dict_samples[id]["test"]))
+print ("TRAINING={}, VALIDATION={}, TEST={}".format(n_train, n_val, n_test)) # TRAINING=790488, VALIDATION=344795, TEST=126179
 print("Splitting...DONE")
 
 '''id = list(splitted_dict_samples.keys())[0]
@@ -39,7 +46,9 @@ print ("id {}\ntrain:{},{}\nval:{},{}\ntest:{},{}".format(id,
     len(splitted_dict_samples[id]["test"]),len(splitted_dict_labels[id]["test"])
 ))'''
 
-print ("Plotting...")
+'''print ("Plotting...")
 vs_plot(ages, final_dict, splitted_dict_labels)
-print ("Plotting...DONE")
+print ("Plotting...DONE")'''
+
+extract_jpgs(splitted_dict_samples, "train")
 
