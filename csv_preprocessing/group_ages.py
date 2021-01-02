@@ -1,7 +1,19 @@
-MAX_JPGS = 150
+'''
+    This function allows to group ages associated to a specific identity into N_GROUPS groups of MAX_JPGS length.
+    If an identity has less than MAX_JPGS images, they are all taken.
+    It takes
+        - ages -> {identity:{jpg_path:age}}
+    and returns 2 dictionaries:
+        - grouped_ages -> {identity:{group_age:[jpgs]}} of images grouped by ages
+        - final_dict -> {identity:jpgs} of chosen images per identity
+'''
 
-def group_ages(ages, grouped_ages, final_dict):
+MAX_JPGS = 150
+N_GROUPS = 4
+
+def group_ages(ages):
     #ranges = []
+    grouped_ages, final_dict = {}, {}
 
     for id in ages.keys():
         vals = list(ages[id].values())
@@ -17,7 +29,7 @@ def group_ages(ages, grouped_ages, final_dict):
             min_val = min(vals)
             max_val = max(vals)
             r = max_val - min_val
-            split = r//4
+            split = r//N_GROUPS
             for v in vals:
                 cnt += 1
                 if min_val<= v <min_val+split:

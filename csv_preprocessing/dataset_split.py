@@ -1,3 +1,18 @@
+'''
+    This function allows to split the selected elements from the training set into 3 sets:
+    training set, validation set and test set, shuffling it before splitting.
+    It takes:
+        - ages -> {identity:{jpg_path:age}}
+        - final_dict -> {identity:jpgs}
+        - percentage of all images to use for training set
+        - percentage of all images to use for validation set
+
+    and returns :
+        - splitted_dict_samples -> {id:{"<set>":[jpgs]}} of images chosen for a particular set
+        - splitted_dict_labels -> {id:{"<set>":[ages]}} of labels chosen for a particular set
+
+'''
+
 from sklearn.model_selection import train_test_split
 
 def train_test_val_split(ages, final_dict, train_perc=0.7, test_perc=0.1):

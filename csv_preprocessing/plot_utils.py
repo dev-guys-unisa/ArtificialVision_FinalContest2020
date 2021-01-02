@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 
+''' this function computes classes of ages from the original dataset '''
 def plot_balancing_original(ages): 
     #ages = {}  # {identity:{jpg:age}}
     classes = {}
@@ -12,7 +13,7 @@ def plot_balancing_original(ages):
 
     return classes
 
-
+''' this function computes classes of ages from the selected dataset'''
 def plot_balancing_modified(ages, final_dict):
     #final_dict => {identity:[jpgs]}
     classes = {}
@@ -26,6 +27,7 @@ def plot_balancing_modified(ages, final_dict):
 
     return classes
 
+''' this function computes classes of ages from the training set after the split'''
 def after_split_plot(splitted_dict_labels):
     # splitted_dict_labels = {} # {id:{"train":[ages]}}
     classes = {}
@@ -38,7 +40,7 @@ def after_split_plot(splitted_dict_labels):
     
     return classes
 
-
+''' this function plots the balancing of original, modified and splitted training set'''
 def vs_plot(ages, final_dict, splitted_dict_labels):
     classes_orig = plot_balancing_original(ages)
     classes_mod = plot_balancing_modified(ages, final_dict)

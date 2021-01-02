@@ -1,7 +1,15 @@
-import random as rd
+'''
+    This function randomly takes THRESHOLD images for each group, except for the 3rd group from which it takes THRESHOLD+DELTA.
+    If a group contains less than the desired number of images, they are all taken and the remaining images 
+    (for reaching the threshold) are randomly chosen between the images not already taken.
+    It takes two dicts:
+        - GROUPED_AGES => {identity:{group_age:[jpgs]}}}
+        - FINAL_DICT {identity:jpgs}
+    and return 
+        - FINAL_DICT {identity:jpgs}
+'''
 
-# GROUPED_AGES => {identity:{group_age:[jpgs]}} = {str:{str:list<str>}}
-# FINAL_DICT #{identity:jpgs}
+import random as rd
 
 THRESHOLD = 30
 DELTA = 30
