@@ -4,7 +4,7 @@ tf.get_logger().setLevel('ERROR')
 import numpy as np
 
 import sys
-sys.path.append("../../GenderRecognitionFramework/training")
+sys.path.append("../GenderRecognitionFramework/training")
 from dataset_tools import mean_std_normalize
 
 '''
