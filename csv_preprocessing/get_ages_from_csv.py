@@ -9,9 +9,11 @@ import os
 import csv
 import numpy as np
 
+BASE_PATH = os.path.abspath(os.path.dirname(__file__))
+
 def read_csv(csv_path, test=False):
     ages = {}
-    with open(csv_path) as csvfile:
+    with open(BASE_PATH+csv_path) as csvfile:
         csvreader = csv.reader(csvfile, delimiter=' ')
         for row in csvreader:
             split = row[0].split(",")

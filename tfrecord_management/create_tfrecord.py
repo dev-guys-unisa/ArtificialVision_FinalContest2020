@@ -40,7 +40,8 @@ def _bytes_feature(value):
 '''
 def convert_to(dataset_path, ages):
   cnt = 0
-  filename = "E:/tfrecords/"+dataset_path.split("/")[-1] + '.record'
+  # modify for indicating where creating TFRecord has to be saved
+  filename = "E:/tfrecords/training_set_cropped.record"
   writer = tf.io.TFRecordWriter(filename)
 
   os.chdir(dataset_path)
@@ -92,7 +93,8 @@ def convert_to(dataset_path, ages):
 '''
 def convert_to_test(dataset_path, ages): #path, ages
   cnt = 0
-  filename = "E:/tfrecords/"+dataset_path.split("/")[-1] + '.record'
+  # modify for indicating where creating TFRecord has to be saved
+  filename = "E:/tfrecords/test_set_cropped.record"
   writer = tf.io.TFRecordWriter(filename)
 
   os.chdir(dataset_path)
@@ -110,7 +112,7 @@ def convert_to_test(dataset_path, ages): #path, ages
             jpg_dir = os.path.join(id_dir, f)
             if os.path.isfile(jpg_dir):
               # write path-age to gt csv
-              path = jpg_dir.split('\\')[-2]+"/"+jpg_dir.split('\\')[-1]
+              path = jpg_dir.split(os.sep)[-2]+"/"+jpg_dir.split(os.sep)[-1]
               age = ages[d]["/"+f]
               csv_writer.writerow([path, age]) 
               # write path-image to tfrecord
@@ -137,10 +139,10 @@ def convert_to_test(dataset_path, ages): #path, ages
 
 
 # modify to indicate where dataset to be saved into TFRecord are store
-PATH_TO_CROPPED_TS = "E:/vggface2_test_cropped"
+PATH_TO_CROPPED_TS = "E:/training_set_cropped"
 # modify to indicate where CSV file with age labels is stored
-PATH_TO_CSV = BASE_PATH+"../train.age.detected.csv"
-test=True #indicates the kind of tfrecord to be created
+PATH_TO_CSV = "../train.age.detected.csv"
+test=False #indicates the kind of tfrecord to be created
 
 print("Recovering ages...")
 ages = read_csv(PATH_TO_CSV, test=test)

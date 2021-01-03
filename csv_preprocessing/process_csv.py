@@ -14,7 +14,7 @@ from extract_jpgs import extract_jpgs
 
 BASE_PATH = os.path.abspath(os.path.dirname(__file__))
 # change for indicating where are placed ages of VGGFACE2 dataset
-PATH_TO_CSV_FILE = os.path.join(BASE_PATH,"../train.age_detected.csv")
+PATH_TO_CSV_FILE = "../train.age_detected.csv"
 
 print("Getting ages...")
 ages = read_csv(PATH_TO_CSV_FILE, test=False)
