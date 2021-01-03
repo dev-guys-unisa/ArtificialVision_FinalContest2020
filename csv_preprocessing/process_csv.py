@@ -16,8 +16,10 @@ BASE_PATH = os.path.abspath(os.path.dirname(__file__))
 # change for indicating where are placed ages of VGGFACE2 dataset
 PATH_TO_CSV_FILE = "../train.age_detected.csv"
 
+test = False #boolean to indicate if age has to be read as int (for training) or float (for test)
+
 print("Getting ages...")
-ages = read_csv(PATH_TO_CSV_FILE, test=False)
+ages = read_csv(PATH_TO_CSV_FILE, test=test)
 print("Getting ages... DONE")
 
 print("Grouping ages...")
@@ -48,9 +50,10 @@ print ("Plotting...")
 vs_plot(ages, final_dict, splitted_dict_labels)
 print ("Plotting...DONE")
 
-print("Recovering files of the chosen images ...")
 # to modify if the set to extract is another (validation or test)
-set_type = "train"
-extract_jpgs(splitted_dict_samples, set_type)
-print("Recovering files of the chosen images ... DONE")
+set_types = ["train", "val", "test"]
+for set_type in set_types:
+    print("Recovering files of the chosen images - {} set...".format(set_type))
+    extract_jpgs(splitted_dict_samples, set_type)
+    print("Recovering files of the chosen images - {} set ... DONE".format(set_type))
 
