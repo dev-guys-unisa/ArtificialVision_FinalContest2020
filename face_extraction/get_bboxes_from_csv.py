@@ -31,6 +31,8 @@ def get_bboxes ():
                 id_folder = os.path.join(PATH_TO_CROPPED_TS, dir_path)
                 #print(id_folder)
                 x,y = int(split[4]), int(split[5])
+                # if top-left point of the bbox has a negative coordinate, set it to 0 
+                # because it probably means that the face is outside the limits of the image
                 if x<0:
                     x=0
                 if y<0:
@@ -39,8 +41,8 @@ def get_bboxes ():
                 height = int(split[7])
                 
                 img = cv.imread(os.path.join(PATH_TO_TS, path),cv.IMREAD_UNCHANGED)
-                if img is not None: #esiste
-                    if not os.path.exists(id_folder): #creo cartella identità
+                if img is not None: #img exists
+                    if not os.path.exists(id_folder): #if it's a new identity, create its folder
                         os.mkdir(id_folder)
                     cnt += 1
                     crop_img = img[y:y+height, x:x+width]
@@ -66,7 +68,7 @@ def recover_uncropped():
             img_path = os.path.join(dir_path,f) #origTS/id/jpg
             path_to_check = os.path.join(PATH_TO_CROPPED_TS,os.path.join(d,f)) #croppedTS/id/jpg
             if not os.path.exists(path_to_check): #uncropped image -> save it as original
-                print(img_path)
+                #print(img_path)
                 cnt += 1
                 copy2(img_path, path_to_check)
     print("{} uncropped images restored".format(cnt))

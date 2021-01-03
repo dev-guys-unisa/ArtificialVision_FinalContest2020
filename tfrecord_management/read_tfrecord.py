@@ -2,6 +2,10 @@ import tensorflow as tf
 import numpy as np
 import cv2 as cv
 
+'''
+    This function creates the format required for reading the record.
+    It returns a dictionary containing the fields to be read.
+'''
 def _get_format(test):
     if test:
         tfrecord_format = (
@@ -24,6 +28,10 @@ def _get_format(test):
 
     return tfrecord_format
 
+'''
+    This function maps a record of the dataset passed as input to the 
+    fields of the format dictionary created according to parameter "test".
+'''
 def _extract_fn(tfrecord, test):
     # Extract features using the keys set during creation
     tfrecord_format = _get_format(test=True)
@@ -39,6 +47,10 @@ def _extract_fn(tfrecord, test):
 
     return [image, path] if test else [image, path, width, height, label]
 
+'''
+    This function reads and shows the informations contained in the
+    entire TFRecord whose path is passed as input.
+'''
 def read_tfrecord(path_tfrecord, test=False):
   dataset = tf.data.TFRecordDataset(path_tfrecord)
   dataset1 = dataset.map(_extract_fn(dataset,test=test),num_parallel_calls=1)
@@ -55,12 +67,14 @@ def read_tfrecord(path_tfrecord, test=False):
         heigth = int(heigth.numpy())
         label = int(label.numpy())
     image = image.numpy()
-    #print("{}: w={}, h={}, shape={}, age={}".format(path, width, heigth, image.shape, label))
-    print(path)
+    if not test: print("{}: w={}, h={}, shape={}, age={}".format(path, width, heigth, image.shape, label))
+    else: print(path)
     cv.imshow("figure",image)
     cv.waitKey(0)
 
 
+PATH_TO_TFRECORD = "E:/tfrecords/own_test_set.record"
+
 print("Reading TFrecord...")
-read_tfrecord("E:/tfrecords/own_test_set_1.record")
+read_tfrecord(PATH_TO_TFRECORD)
 print("Reading TFrecord...DONE")
