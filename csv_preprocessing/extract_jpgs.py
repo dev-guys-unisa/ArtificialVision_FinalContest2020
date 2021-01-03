@@ -10,7 +10,9 @@ import os
 import progressbar
 from shutil import copy2
 
+# modify to indicate where images to be taken are placed
 PATH_TO_EXTRACT_DATASET = "E:\\train\\"
+# modify to indicate where taken images will be placed
 PATH_TO_EXTRACTING_DIR = "E:\\test_set\\"
 
 MAX_VALUES = {"train":790488, "validation":344795, "test":126179}

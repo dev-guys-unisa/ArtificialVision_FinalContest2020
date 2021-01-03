@@ -136,7 +136,9 @@ def convert_to_test(dataset_path, ages): #path, ages
           print("Unexpected file {}".format(d))
 
 
+# modify to indicate where dataset to be saved into TFRecord are store
 PATH_TO_CROPPED_TS = "E:/vggface2_test_cropped"
+# modify to indicate where CSV file with age labels is stored
 PATH_TO_CSV = BASE_PATH+"../train.age.detected.csv"
 test=True #indicates the kind of tfrecord to be created
 

@@ -5,8 +5,12 @@ import progressbar
 from shutil import copy2
 
 BASE_PATH = os.path.abspath(os.path.dirname(__file__))
-PATH_TO_CSV = os.path.join(BASE_PATH,"../face_annotations/test.detected.csv")
+# path where is placed CSV file containing the annotations for cropping faces
+PATH_TO_CSV = os.path.join(BASE_PATH,"../face_annotations/train.detected.csv")
+
+# modify to indicate where images to be cropped are placed 
 PATH_TO_TS = "E:/vggface2_test/test/"
+# modify to indicate where cropped images will be placed
 PATH_TO_CROPPED_TS = "E:/vggface2_test_cropped"
 if not os.path.isdir(PATH_TO_CROPPED_TS): os.mkdir(PATH_TO_CROPPED_TS)
 

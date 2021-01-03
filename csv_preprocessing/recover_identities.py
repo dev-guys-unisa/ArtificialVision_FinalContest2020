@@ -11,6 +11,7 @@
 
 import random as rd
 
+# parameters
 THRESHOLD = 30
 DELTA = 30
 N_GROUPS = 4
@@ -28,20 +29,20 @@ def recover_identities(grouped_ages,final_dict):
                 jpgs = grouped_ages[id]["group{}".format(i)]
             except:
                 print(id)
+            # if it's the 3rd group, take random 60 elements
             if i == 3:
                 if len(jpgs)>THRESHOLD+DELTA:
-                    # take random 60 elements
                     sampling = rd.sample(jpgs, k=THRESHOLD+DELTA)
                     final_dict[id].extend(sampling)
                     for s in sampling:
                         jpgs.remove(s)
                     remaining_jpgs.extend(jpgs)
-                else:
+                else: # take all
                     final_dict[id].extend(jpgs)
                     adjust = True
                     to_retrieve += THRESHOLD+DELTA - len(jpgs)
-            elif len(jpgs) > THRESHOLD:
-                # take random 30 elements
+            # otherwise take random 30 elements
+            elif len(jpgs) > THRESHOLD: 
                 sampling = rd.sample(jpgs, k=THRESHOLD)
                 final_dict[id].extend(sampling)
                 for s in sampling:
@@ -51,7 +52,8 @@ def recover_identities(grouped_ages,final_dict):
                 final_dict[id].extend(jpgs)
                 adjust = True
                 to_retrieve += THRESHOLD - len(jpgs)
-        if adjust:  # if a group hasn't 30 values, take the remaining values to reach 150 samples from remaining groups
+        # if a group hasn't 30 values, take the remaining values to reach 150 samples from remaining groups
+        if adjust:
             sampling = rd.sample(remaining_jpgs, k=to_retrieve)
             final_dict[id].extend(sampling)
     

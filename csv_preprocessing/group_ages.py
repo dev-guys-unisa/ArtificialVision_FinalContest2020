@@ -17,9 +17,9 @@ def group_ages(ages):
 
     for id in ages.keys():
         vals = list(ages[id].values())
-        if len(vals)<=MAX_JPGS: #take all jpgs
+        if len(vals)<=MAX_JPGS: #take all jpgs if an identity has less than MAX_JPGS images
             final_dict[id] = ages[id].keys()
-        else:
+        else: #split into N_GROUPS groups
             grouped_ages[id]={}
             grouped_ages[id]["group1"] = []
             grouped_ages[id]["group2"] = []

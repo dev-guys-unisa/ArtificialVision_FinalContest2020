@@ -13,7 +13,8 @@ from dataset_split import train_test_val_split
 from extract_jpgs import extract_jpgs
 
 BASE_PATH = os.path.abspath(os.path.dirname(__file__))
-PATH_TO_CSV_FILE = os.path.join(BASE_PATH,"../face_annotations/test.detected.csv")
+# change for indicating where are placed ages of VGGFACE2 dataset
+PATH_TO_CSV_FILE = os.path.join(BASE_PATH,"../train.age_detected.csv")
 
 print("Getting ages...")
 ages = read_csv(PATH_TO_CSV_FILE, test=False)
@@ -48,7 +49,8 @@ vs_plot(ages, final_dict, splitted_dict_labels)
 print ("Plotting...DONE")
 
 print("Recovering files of the chosen images ...")
-set_type = "train" # to modify if the set to extract is another (validation or test)
+# to modify if the set to extract is another (validation or test)
+set_type = "train"
 extract_jpgs(splitted_dict_samples, set_type)
 print("Recovering files of the chosen images ... DONE")
 

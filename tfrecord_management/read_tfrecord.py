@@ -72,8 +72,9 @@ def read_tfrecord(path_tfrecord, test=False):
     cv.imshow("figure",image)
     cv.waitKey(0)
 
-
+# modify to indicate where the TFRecord to be read is placed
 PATH_TO_TFRECORD = "E:/tfrecords/own_test_set.record"
+test = True # indicate if a test TFRecord has to be read
 
 print("Reading TFrecord...")
 read_tfrecord(PATH_TO_TFRECORD)
