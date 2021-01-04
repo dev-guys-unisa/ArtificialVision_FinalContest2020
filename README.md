@@ -10,9 +10,9 @@ This repository is created for the final contest of Artificial Vision subject at
 
 For dealing with [Google Colab](https://colab.research.google.com/), we to use a special format to compat data, TFRecord. 
 
-In order to create this files, first of all you have to choose the datasets (training, validation and test sets) to be used for training and evaluate the model; **our implementation** (due to limits imposed by Colab's GPU usage) consists in using a subpart of the original training set of [the dataset VggFace2](https://github.com/ox-vgg/vgg_face2) composed by at most 150 images per identity; afterwards, it's divided in 70% for training, 20% for validation and 10% for test. To **choose the subpart** from the entire dataset, we divide the age range of each identity of the dataset in 4 groups, randomly taken a fixed number of images for each group; this number is 30, execpt for the 3rd group in which we take 60 elements in order to respect the original data distribution. If an identity has less than 150 images, it has taken entirely without age grouping for that identity; moreover if, after the age grouping, a group has less than 30 elements (40 for the 3rd group), it is taken entirely and the remaining images to reach the threshold of 150 are randomly chosen from the images of the other groups not already taken.
+In order to create this files, first of all you have to choose the datasets (training, validation and test sets) to be used for training and evaluate the model; **our implementation** (due to limits imposed by Colab's GPU usage) consists in using a subpart of the original training set of [the dataset VggFace2](https://github.com/ox-vgg/vgg_face2) composed by at most 150 images per identity; afterwards, it's divided in 70% for training, 20% for validation and 10% for test. To **choose the subpart** from the entire dataset, we divide the age range of each identity of the dataset in 4 groups, randomly taken a fixed number of images for each group; this number is 30, except for the 3rd group in which we take 60 elements in order to respect the original data distribution and to avoid spike of samples of a particular age. If an identity has less than 150 images, it has taken entirely without age grouping for that identity; moreover if, after the age grouping, a group has less than 30 elements (40 for the 3rd group), it is taken entirely and the remaining images to reach the threshold of 150 are randomly chosen from the images of the other groups not already taken.
 
-In order to **reproduce our experiment**, first of all you have to launch the script [process_csv.py](csv_preprocessing/process_csv.py) from its [directory](csv_preprocessing) with the command
+In order to **reproduce our experiment**, first of all you have to launch the script [process_csv.py](csv_preprocessing/process_csv.py) within its [directory](csv_preprocessing) with the command
 
 </div>
 
@@ -43,7 +43,7 @@ This script:
     ```
 <br/>
 
-At this point, you have the 3 needed sets and you can pass to phase of **face extraction**, done with the script [get_bboxes_from_csv.py](face_extraction/get_bboxes_from_csv.py) launched from [its directory](face_extraction/) with
+At this point, you have the 3 needed sets and you can pass to the phase of **face extraction**, which can be done with the script [get_bboxes_from_csv.py](face_extraction/get_bboxes_from_csv.py) launched within [its directory](face_extraction/) with
 ```python
 python3 get_bboxes_from_csv.py
 ```
@@ -54,7 +54,8 @@ path = split[2]
 dir_path, file_path = path.split("/")[0], path.split("/")[1]
 id_folder = os.path.join(PATH_TO_CROPPED_TS, dir_path)
 x,y = int(split[4]), int(split[5])
-# if top-left point of the bbox has a negative coordinate, set it to 0 because it probably means that the face is outside the limits of the image
+# if top-left point of the bbox has a negative coordinate, set it to 0
+# because it probably means that the face is outside the limits of the image
 if x<0:
     x=0
 if y<0:
@@ -68,20 +69,44 @@ crop_img = img[y:y+height, x:x+width]
 if crop_img.size!=0:
     cv.imwrite(os.path.join(PATH_TO_CROPPED_TS, path), crop_img)
 ```
-<br/>
 
 <div style="text-align: justify">
 
-Once cropped all sets, you can **generate the TFRecord files** using the script [create_tfrecord.py](tfrecord_management/create_tfrecord.py) which distingueshes (through the parameter _test_ to set at line 145) between test record made of record of the type:
+For saving time, we use face annotations provided by [MiviaLab](https://mivia.unisa.it/) which you can download [here](https://github.com/MiviaLab/GenderRecognitionFramework/releases/tag/0), although we foresee in our system a detector for doing face extraction. In particular we choose MTCNN detector whose implementation can be found [here](https://github.com/ipazc/mtcnn) and can be installed with:
+
+```python
+pip install mtcnn
+```
+
+Face extraction is done with the function *extract_face* placed in the script [extract_face.py](face_extraction/extract_face.py): this function recovers all faces present in the image
+
+```python
+results = detector.detect_faces(img)
+```
+
+then finds the bounding box with the max area because we can have multiple faces in a singe image and in this way we ideally select only the one in close-up and finally crops the image with the information of the max area.
+
+If no faces are detected or bounding box are too small (which probably means bad detection), the function return original image.
+
+</div>
+
+<br/>
+
+
+
+<div style="text-align: justify">
+
+Once cropped all sets, you can **generate the TFRecord files** using the script [create_tfrecord.py](tfrecord_management/create_tfrecord.py) which distingueshes (through the parameter _test_ to set at line 145) between test record of the type:
 
 </div>
 
 ```python
-example = tf.train.Example(features=tf.train.Features(feature={'path': _bytes_feature((path).encode('utf-8')),
- 'image_raw': _bytes_feature(image_string)
+example = tf.train.Example(features=tf.train.Features(feature={
+'path': _bytes_feature((path).encode('utf-8')),
+'image_raw': _bytes_feature(image_string)
 }))
 ```
-and other set type record of the type:
+and validation/training record of the type:
 ```python
 example = tf.train.Example(features=tf.train.Features(feature={
 'path': _bytes_feature((path).encode('utf-8')),
@@ -94,7 +119,7 @@ example = tf.train.Example(features=tf.train.Features(feature={
 
 <div style="text-align: justify">
 
-Moreover test TFRecord creation function also write a CSV file with the age label of each test image (in order to use it on colab for evaluate the model):
+Moreover test TFRecord creation function also write a CSV file with the age label of each test image (in order to use it on Colab for evaluate the model):
 
 </div>
 
@@ -109,7 +134,7 @@ and preprocess images before writing to record, normalizing and resizing them:
 img = vggface2_preprocessing(img)
 img = custom_resize(img, img.shape[0], img.shape[1], TARGET_SHAPE)
 ```
-This script has to be launched from [its directory](tfrecord_management/) with the command
+This script has to be launched within [its directory](tfrecord_management/) with the command
 ```python
 python3 create_tfrecord.py
 ```
