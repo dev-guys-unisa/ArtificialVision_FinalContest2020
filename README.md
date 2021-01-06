@@ -179,7 +179,7 @@ ___
 
 <div style="text-align: justify">
 
-For testing the model, we use [this notebook](notebooks/AV_FinalContest_AgeEstimation_Test.ipynb) in which we read each sample contained in the chosen test set and write the associated prediction done by the model in a CSV; then we compare the labels contained in the CSV of ground truth and predictions for calculating the MAE, the metric used for effectively assessing model performance.
+For testing the model, we use [this notebook](notebooks/AV_FinalContest_AgeEstimation_Test.ipynb) in which we read each sample contained in the chosen test set and write the associated prediction done by the model in a [CSV](predictions/GROUP_18.csv); then we compare the labels contained in the CSV of ground truth and predictions for calculating the MAE, the metric used for effectively assessing model performance.
 ___
 ##### Group 18
 
