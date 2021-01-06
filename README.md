@@ -1,7 +1,8 @@
 # ArtificialVision_FinalContest2020
+
 <div style="text-align: justify">
 
-This repository is created for the final contest of Artificial Vision subject at University of Salerno.The aim of this project is to design a DCNN (as regressor or classifier) for age estimation on [VggFace2 dataset](https://github.com/ox-vgg/vgg_face2).
+This repository is created for the final contest of Artificial Vision subject at University of Salerno.The aim of this project is to design a DCNN (as regressor or classifier) for age estimation on [VggFace2 dataset](https://github.com/ox-vgg/vgg_face2) labeled with ages by [MiviaLab](https://mivia.unisa.it/).
 
 </div>
 

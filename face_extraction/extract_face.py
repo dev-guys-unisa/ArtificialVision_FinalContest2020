@@ -23,7 +23,7 @@ def vggface2_preprocessing(img):
 
 '''
   This function resizes the image passed as input to the target shape indicated.
-  If the actual dimensione of the image is less than the target, the resize is made by adding black padding
+  If the actual dimension of the image is less than the target, the resize is made by adding black padding
   around the image, otherwise the resizing is preceeded by the application of an anti-aliasing filter.
 '''
 def custom_resize(image, h, w, t_shape):
