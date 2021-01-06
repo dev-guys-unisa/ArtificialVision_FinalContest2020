@@ -1,10 +1,23 @@
 # ArtificialVision_FinalContest2020
+![pow](https://img.shields.io/badge/Powered%20By-dev--guys--unisa-blue)
+![colab](https://img.shields.io/badge/Developed%20With-Google%20Colab-yellow)
 
 <div style="text-align: justify">
 
 This repository is created for the final contest of Artificial Vision subject at University of Salerno.The aim of this project is to design a DCNN (as regressor or classifier) for age estimation on [VggFace2 dataset](https://github.com/ox-vgg/vgg_face2) labeled with ages by [MiviaLab](https://mivia.unisa.it/).
 
 </div>
+
+___
+# Group Members
+
+![Alt text](https://github.com/dev-guys-unisa/ContestCognitiveRobotics2020/blob/main/utils/Logo.png?raw=true "Optional title")
+
+* Salvatore Ventre
+* Vincenzo Russomanno
+* Giovanni Puzo
+* Vittorio Fina
+___
 
 ## **Preparation of the dataset to give as input to DCNN**
 <div style="text-align: justify">
@@ -140,5 +153,9 @@ This script has to be launched within [its directory](tfrecord_management/) with
 python3 create_tfrecord.py
 ```
 Well done! TFRecords are created successfully!
-
+___
 ## **DCNN model and training**
+
+
+___
+##### Group 18
