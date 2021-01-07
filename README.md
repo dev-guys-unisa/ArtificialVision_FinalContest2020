@@ -158,15 +158,15 @@ ___
 
 <div style="text-align: justify">
 
-We decided to build a classifier able to recognize 101 classes (ages from 0 to 100), in particular we choose the [Resnet50 model](https://github.com/WeidiXie/Keras-VGGFace2-ResNet50) pre-trained on ImageNet. At this implementation we added a Dense layer of 101 neurons, with softmax activation function, for adapting the pre-trained net to solve our classification problem.
+We decided to build a *classifier* able to recognize 101 classes (ages from 0 to 100), in particular we choose the [Resnet50 model](https://github.com/WeidiXie/Keras-VGGFace2-ResNet50) pre-trained on VGGFace2. At this implementation we added a Dense layer of 101 neurons, with softmax activation function, for adapting the pre-trained net to solve our classification problem.
 
-The training procedure can be found [here](notebooks/AV_FinalContest_AgeEstimation_Training.ipynb); it was done for 25 epochs (18 training only the last 11 layers and 7 training all the layers) with a batch size of 128, using SGD with momentum as optimizer. Moreover we have used:
-* Categorical Crossentropy as loss function
-* Categorical Accuracy and MAE as metrics
+The **training procedure** can be found [here](notebooks/AV_FinalContest_AgeEstimation_Training.ipynb); it was done for *25 epochs* (18 training only the last 11 layers and 7 training all the layers) with a *batch size* of 128, using *SGD with momentum* as optimizer. Moreover we have used:
+* *Categorical Crossentropy* as loss function
+* *Categorical Accuracy* and MAE as metrics
   
-The learning rate starts at 0.005 and it's reduced by a factor of 0.2 after 20 epochs. To avoid overfitting, we use EarlyStopping callback, which stops the training if val_loss not improve for 5 epochs, and, as provided by original implementation of the chosen CNN, a weight decay of 1e-4. 
+The *learning rate* starts at 0.005 and it's reduced by a factor of 0.2 after 20 epochs. To avoid overfitting, we use *EarlyStopping* callback, which stops the training if val_loss not improve for 5 epochs, and, as provided by original implementation of the chosen CNN, a *weight decay* of 1e-4. 
 
-Finally, for improving the representativeness of the available dataset, we use a data augmentation composed by:
+Finally, for improving the representativeness of the available dataset, we use a **data augmentation** composed by:
 
 * random variation in brightness and contrast
 * random changing of the chrome of the image, from RGB to BW
@@ -180,7 +180,25 @@ ___
 <div style="text-align: justify">
 
 For testing the model, we use [this notebook](notebooks/AV_FinalContest_AgeEstimation_Test.ipynb) in which we read each sample contained in the chosen test set and write the associated prediction done by the model in a [CSV](predictions/GROUP_18.csv); then we compare the labels contained in the CSV of ground truth and predictions for calculating the MAE, the metric used for effectively assessing model performance.
+
 ___
-##### Group 18
 
 </div>
+
+## **Useful links**
+
+Here you can find useful links to our projectwork "Age Estimation":
+
+Google Drive Folder link: 
+https://drive.google.com/drive/folders/1SbOUhx0yRu1UCUhiGzUYI-AZdGONcr25?usp=sharing
+
+GitHub link:
+https://github.com/dev-guys-unisa/ArtificialVision_FinalContest2020
+
+Model link:
+https://drive.google.com/file/d/1-Z2UaCQOQXYznpQRfip9PhYVAEjy3naO/view?usp=sharing
+
+Last Checkpoint's Model link:
+https://drive.google.com/file/d/1-iDy6Wk8QnC83-tqktCBH0T3LsRAUJP9/view?usp=sharing
+___
+##### Group 18
